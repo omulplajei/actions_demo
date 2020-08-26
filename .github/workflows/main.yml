@@ -5,6 +5,10 @@ jobs:
     name: Checkstyle job
     runs-on: ubuntu-latest
     steps:
+      - name: Install review dog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
       - name: Run java checkstyle
         uses: nikitasavinov/checkstyle-action@0.3.1
         with:
