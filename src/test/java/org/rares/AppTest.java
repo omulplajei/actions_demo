@@ -1,5 +1,6 @@
 package org.rares;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -15,6 +16,8 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue()
     {
+        String value = null;
+        int length = value.length();
         assertTrue( true );
     }
 }
