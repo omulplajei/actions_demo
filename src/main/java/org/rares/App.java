@@ -13,7 +13,8 @@ public class App
         System.out.println( "Hello World again!" );
         System.out.println( "Hello World again and again!" );
 
-        String variable = null;
-            System.out.println( variable.length() );
+
+        String isNull = null;
+            System.out.println( isNull.length() );
     }
 }
