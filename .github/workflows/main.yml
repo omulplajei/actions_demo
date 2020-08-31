@@ -1,4 +1,4 @@
-on: pull_request
+on: [push,workflow_dispatch]
 
 jobs:
   checkstyle_job:
