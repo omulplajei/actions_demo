@@ -4,6 +4,11 @@ package org.rares;
  * Hello world.
  */
 public class App {
+    /**
+     * The main method.
+     *
+     * @param args The arguments
+     */
     public static void main(String[] args) {
 
         System.out.println("Hello World!");
@@ -15,5 +20,9 @@ public class App {
 
         String isNull = null;
         System.out.println(isNull.length());
+    }
+
+    private void privateMethodNoJavadoc() {
+
     }
 }
