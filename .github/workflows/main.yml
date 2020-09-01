@@ -12,5 +12,6 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         level: 'error'
+        checkstyle_config: 'src/main/resources/google_checks.xml'
         reporter: 'github-pr-review'
         tool_name: 'reviewdog'
