@@ -1,20 +1,19 @@
 package org.rares;
 
 /**
- * Hello world!
- *
+ * Hello world.
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
+public class App {
+    public static void main(String[] args) {
 
-        System.out.println( "Hello World!" );
-        System.out.println( "Hello World again!" );
-        System.out.println( "Hello World again and again!" );
+        System.out.println("Hello World!");
+        System.out.println("Hello World again!");
+        System.out.println("Hello World again and again!");
 
+        System.out.println("Very long line. Very long! Very long! Very long! Very long! Very long! Very long!"
+            + " Very long! Very long! Very long!");
 
         String isNull = null;
-            System.out.println( isNull.length() );
+        System.out.println(isNull.length());
     }
 }
