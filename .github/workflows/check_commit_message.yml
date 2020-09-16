@@ -27,7 +27,7 @@ jobs:
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
-          text: ${{ COMMIT_MESSAGE }}
+          text: ${{ env.COMMIT_MESSAGE }}
           regex: '^((TP|#|US)[0-9]+).+$'
           flags: gm
 
