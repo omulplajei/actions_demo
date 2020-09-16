@@ -17,7 +17,7 @@ jobs:
           echo $COMMIT_MESSAGE
 
       - name: Check for TP/US/#
-      - uses: actions-ecosystem/action-regex-match@v2
+        uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
           text: $COMMIT_MESSAGE
