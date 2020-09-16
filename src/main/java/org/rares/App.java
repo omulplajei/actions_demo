@@ -17,7 +17,6 @@ public class App
         System.out.println(isNull.length());
 
         System.out.println("Testing last commit message check!");
-        System.out.println("First commit.");
-        System.out.println("Second commit.");
+        System.out.println("Don't trigger action for PR, only when merging.");
     }
 }
