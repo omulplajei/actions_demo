@@ -10,11 +10,17 @@ jobs:
     name: Check Commit Msg
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+          with:
+            ref: ${{ github.sha }}
+
       - name: Get Commit Message
         run: |
           MSG=$(git log --format=%B -n 1 ${{ github.event.after }})
           echo "::set-env name=COMMIT_MESSAGE::${MSG}"
           echo $COMMIT_MESSAGE
+          echo ${{ github.sha }}
 
       - name: Check for TP/US/#
         uses: actions-ecosystem/action-regex-match@v2
