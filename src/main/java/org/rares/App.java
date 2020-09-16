@@ -17,5 +17,6 @@ public class App
         System.out.println(isNull.length());
 
         System.out.println("Testing last commit message check!");
+        System.out.println("Second commit.");
     }
 }
