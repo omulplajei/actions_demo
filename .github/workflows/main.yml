@@ -1,17 +1,23 @@
-on: [pull_request, workflow_dispatch]
+name: 'Commit Message Check'
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - master
+      - 'releases/*'
 
 jobs:
-  checkstyle_job:
-    name: Checkstyle job
+  check-commit-message:
+    name: Check Commit Message
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Run check style
-      uses: nikitasavinov/checkstyle-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        level: 'error'
-        checkstyle_config: 'src/main/resources/google_checks.xml'
-        reporter: 'github-pr-review'
-        tool_name: 'reviewdog'
+      - name: Check for TP/US/#
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: '^((TP|#|US)[0-9]+).+$'
+          error: 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
