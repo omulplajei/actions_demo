@@ -16,6 +16,8 @@ public class App
         String isNull = null;
         System.out.println(isNull.length());
 
-        System.out.println("Testing commit message check!");
+        System.out.println("Testing last commit message check!");
+        System.out.println("Second commit.");
+        System.out.println("Third commit.");
     }
 }
