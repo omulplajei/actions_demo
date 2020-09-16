@@ -27,12 +27,13 @@ jobs:
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
-          text: $COMMIT_MESSAGE
+          text: ${{ COMMIT_MESSAGE }}
           regex: '^((TP|#|US)[0-9]+).+$'
           flags: gm
 
       - name: Fail if not matching
         run: |
+          echo "Regex match: "
           echo ${{ steps.regex-match.outputs.match }}
           echo 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
           exit 1
