@@ -15,5 +15,7 @@ public class App
 
         String isNull = null;
         System.out.println(isNull.length());
+
+        System.out.println("Testing commit message check!");
     }
 }
