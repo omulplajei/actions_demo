@@ -1,0 +1,30 @@
+name: 'Check Commit Msg'
+on:
+  push:
+    branches:
+      - master
+      - 'releases/*'
+
+jobs:
+    name: Check Commit Msg
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Commit Message
+        run: |
+          MSG=$(git log --format=%B -n 1 ${{ github.event.after }})
+          echo "::set-env name=COMMIT_MESSAGE::${MSG}"
+          echo $COMMIT_MESSAGE
+
+      - name: Check for TP/US/#
+      - uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
+        with:
+          text: $COMMIT_MESSAGE
+          regex: '^((TP|#|US)[0-9]+).+$'
+          flags: gm
+
+      - name: Fail if not matching
+        run: |
+          echo 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
+          exit 1
+        if: ${{ steps.regex-match.outputs.match == '' }}
