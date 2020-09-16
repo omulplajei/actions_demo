@@ -6,7 +6,6 @@ on:
       - 'releases/*'
 
 jobs:
-    name: Check Commit Msg
     runs-on: ubuntu-latest
     steps:
       - name: Get Commit Message
