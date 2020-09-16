@@ -19,5 +19,6 @@ public class App
         System.out.println("Testing last commit message check!");
         System.out.println("Don't trigger on PR events.");
         System.out.println("Used to enter an invalid merge message.");
+        System.out.println("Second commit.");
     }
 }
