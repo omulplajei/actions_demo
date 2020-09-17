@@ -19,12 +19,10 @@ jobs:
 
       - name: Extract branch name
         id: extract_branch
-        shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Count Validated Messages
         id: message-validator
-        shell: bash
         run: |
           master="master"
           echo ${{ steps.extract_branch.outputs.branch }}
