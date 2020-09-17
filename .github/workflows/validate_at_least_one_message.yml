@@ -25,8 +25,8 @@ jobs:
           branch=$(git symbolic-ref --short HEAD)
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
-          for commit_message in $(git log $(git merge-base master branch)..branch --format=%B); do
-              if [[ $message =~ $COMMIT_MESSAGE_FORMAT ]]; then
+          for commit_message in $(git log $(git merge-base master $branch)..$branch --format=%B); do
+              if [[ $commit_message =~ $regex ]]; then
                 OK=$((OK+1))
               fi
           done
