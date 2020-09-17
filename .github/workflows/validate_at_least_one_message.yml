@@ -6,10 +6,6 @@ on:
       - edited
       - reopened
       - synchronize
-  push:
-    branches:
-      - master
-      - 'releases/*'
 
 jobs:
   check_at_least_one_message:
@@ -26,10 +22,12 @@ jobs:
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           for commit_message in $(git log $(git merge-base master $branch)..$branch --format=%B); do
+              echo $commit_message
               if [[ $commit_message =~ $regex ]]; then
                 OK=$((OK+1))
               fi
           done
+          echo $OK
           echo "::set-output name=nr_validated_messages::${OK}"
 
       - name: Verify at least one message matches regex
