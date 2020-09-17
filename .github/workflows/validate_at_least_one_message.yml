@@ -17,16 +17,20 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Extract branch name
+        id: extract_branch
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+
       - name: Count Validated Messages
         id: message-validator
+        shell: bash
         run: |
-          echo ${{ github.event.pull_request.head.sha }}
-          echo ${{ github.sha }}
-          branch=$(git rev-parse --abbrev-ref HEAD)
-          echo $branch
+          master="master"
+          echo "Branch: $(branch)"
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
-          for commit_message in $(git log $(git merge-base master $branch)..$branch --format=%B); do
+          for commit_message in $(git log $(git merge-base $master $branch)..$branch --format=%B); do
               echo $commit_message
               if [[ $commit_message =~ $regex ]]; then
                 OK=$((OK+1))
