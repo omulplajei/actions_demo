@@ -20,6 +20,8 @@ jobs:
       - name: Count Validated Messages
         id: message-validator
         run: |
+          echo ${{ github.event.pull_request.head.sha }}
+          echo ${{ github.sha }}
           branch=$(git rev-parse --abbrev-ref HEAD)
           echo $branch
           regex='^((TP|#|US)[0-9]+).+$'
