@@ -20,8 +20,7 @@ jobs:
       - name: Extract branch name
         shell: bash
         run: |
-          echo ${GITHUB_REF##*/}
-          echo ${GITHUB_REF#/refs/heads/}
+          echo ${GITHUB_HEAD_REF##*/}
           echo "::set-output name=branch::$(echo ${GITHUB_REF##*/})"
         id: extract_branch
 
@@ -31,7 +30,7 @@ jobs:
           echo ${{ steps.extract_branch.outputs.branch }}
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
-          for commit_message in $(git log $(git merge-base master $branch)..$branch --format=%B); do
+          for commit_message in $(git log --format=%B $(git merge-base master $branch)..$branch); do
               echo $commit_message
               if [[ $commit_message =~ $regex ]]; then
                 OK=$((OK+1))
