@@ -20,5 +20,6 @@ public class App
         System.out.println("Don't trigger action for PR, only when merging.");
         System.out.println("First commit!");
         System.out.println("Second commit!");
+        System.out.println("Third commit!");
     }
 }
