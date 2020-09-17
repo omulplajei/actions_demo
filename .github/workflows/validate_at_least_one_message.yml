@@ -21,14 +21,13 @@ jobs:
         id: extract_branch
         shell: bash
         run: |
-          echo "::set-output name=branch::$(echo ${GITHUB_REF##*/})"
+          echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF##*/})"
 
       - name: Count Validated Messages
         id: message-validator
         run: |
           echo ${{ steps.extract_branch.outputs.branch }}
           temp_branch = ${{ steps.extract_branch.outputs.branch }}
-          echo "Temporary branch is: $(temp_branch)"
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           for commit_message in $(git log --format=%B $(git merge-base master $temp_branch)..$temp_branch); do
