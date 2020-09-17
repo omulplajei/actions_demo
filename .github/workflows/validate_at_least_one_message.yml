@@ -19,6 +19,7 @@ jobs:
         id: message-validator
         run: |
           branch=$(git symbolic-ref --short HEAD)
+          echo $branch
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           for commit_message in $(git log $(git merge-base master $branch)..$branch --format=%B); do
