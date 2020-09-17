@@ -25,5 +25,6 @@ public class App
         System.out.println("5th commit!");
         System.out.println("6th commit!");
         System.out.println("7th commit!");
+        System.out.println("8th commit!");
     }
 }
