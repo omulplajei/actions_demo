@@ -1,2 +1,2 @@
 # actions_demo
-Create and test Github actions
+Create and test Github actions.
