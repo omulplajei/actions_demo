@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           master="master"
-          echo "Branch: $(branch)"
+          echo ${{ steps.extract_branch.outputs.branch }}
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           for commit_message in $(git log $(git merge-base $master $branch)..$branch --format=%B); do
