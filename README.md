@@ -7,4 +7,3 @@ Fullstop.
 
 Fullstop2.
 
-Fullstop3.
