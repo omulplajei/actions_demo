@@ -5,5 +5,3 @@ More details.
 
 Fullstop.
 
-Fullstop2.
-
