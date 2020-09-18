@@ -19,12 +19,7 @@ jobs:
       - name: Check Commit Type
         uses: gsactions/commit-message-checker@v1
         with:
-          pattern: '\[[^]+\] .+$'
+          pattern: '^((TP|#|US)[0-9]+).+$'
           flags: 'gm'
-          error: 'Your first line has to contain a commit type like "[BUGFIX]".'
+          error: 'Commit messages must be formatted like TPxxxx or USxxxxx or #xxxxxx'
           excludeDescription: '1'
-      - name: Check Line Length
-        uses: gsactions/commit-message-checker@v1
-        with:
-          pattern: '^[^#].{74}'
-          error: 'The maximum line length of 74 characters is exceeded.'
