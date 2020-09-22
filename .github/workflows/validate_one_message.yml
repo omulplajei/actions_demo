@@ -36,9 +36,7 @@ jobs:
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           $(git fetch origin)
-          first_commit=$(git merge-base $master $branch)
           second_commit=$(git merge-base refs/heads/master $branch)
-          echo $first_commit
           echo $second_commit
           messages=$(git log --format=%B $first_commit..$branch)
           echo $messages
