@@ -33,14 +33,13 @@ jobs:
           OK=0
           $(git fetch origin)
           first_commit=$(git merge-base origin/master origin/$branch)
-          messages=$(git log --format=%s $first_commit..origin/$branch)
-          for message in $messages; do
-            echo $message
-            if [[ $message =~ $regex ]]; then
-               OK=$((OK+1))
-            fi
+          commits=$(git rev-list $first_commit..origin/$branch)
+          for commit in $commits; do
+              message=$(git cat-file commit $commit | sed '1,/^$/d')
+              if [[ $message =~ $regex ]]; then
+                  OK=$((OK+1))
+              fi
           done
-          echo $OK
           echo "::set-output name=nr_validated_messages::${OK}"
 
       - name: Fail If No Message Is Validated
@@ -48,9 +47,3 @@ jobs:
           echo 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
           exit 1
         if: ${{ steps.message-validator.outputs.nr_validated_messages < 1 }}
-
-
-
-
-
-
