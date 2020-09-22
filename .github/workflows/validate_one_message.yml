@@ -25,14 +25,14 @@ jobs:
           echo ${{ toJson(github) }}
           echo ${{ toJson(github.event.pull_request) }}
           echo ${{ github.event.pull_request.commits_url }}
-          echo "GitHub SHA SHORT: " ${GITHUB_SHA_SHORT}
 
       - name: Count Validated Messages
         id: message-validator
         run: |
-          branch=$(git symbolic-ref --short HEAD)
+          branch=${GITHUB_REF##*/}
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
+          git fetch origin
           for commit_message in $(git log $(git merge-base master branch)..branch --format=%B); do
               if [[ $message =~ $COMMIT_MESSAGE_FORMAT ]]; then
                 OK=$((OK+1))
