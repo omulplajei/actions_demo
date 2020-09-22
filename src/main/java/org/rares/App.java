@@ -23,6 +23,7 @@ public class App {
 
         System.out.println("Testing last commit message check!");
         System.out.println("Don't trigger action for PR, only when merging.");
+        System.out.println("Test");
     }
 
     private void privateMethodNoJavadoc() {
