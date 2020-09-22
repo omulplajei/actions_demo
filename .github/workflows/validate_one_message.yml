@@ -6,10 +6,6 @@ on:
       - edited
       - reopened
       - synchronize
-  push:
-    branches:
-      - master
-      - 'releases/*'
 
 jobs:
   check_at_least_one_message:
@@ -22,11 +18,9 @@ jobs:
       - name: Get branch name
         id: extract_branch
         run: |
-          echo ${GITHUB_REF##*/}
-          echo ${{ toJson(github) }}
-          echo ${{ toJson(github.event.pull_request) }}
+          echo ${GITHUB_HEAD_REF##*/}
           echo ${{ github.event.pull_request.commits_url }}
-          echo "::set-output name=current_branch::${GITHUB_REF##*/}"
+          echo "::set-output name=current_branch::${GITHUB_HEAD_REF##*/}"
 
       - name: Count Validated Messages
         id: message-validator
