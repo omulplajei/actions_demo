@@ -21,11 +21,11 @@ jobs:
 
       - name: Only for debug
         run: |
-          echo "Branch: " ${GITHUB_REF##*/}
+          echo ${GITHUB_REF##*/}
           echo ${{ toJson(github) }}
           echo ${{ toJson(github.event.pull_request) }}
           echo ${{ github.event.pull_request.commits_url }}
-          echo "GitHub SHA SHORT: " ${{ env.GITHUB_SHA_SHORT }}
+          echo "GitHub SHA SHORT: " ${GITHUB_SHA_SHORT}
 
       - name: Count Validated Messages
         id: message-validator
