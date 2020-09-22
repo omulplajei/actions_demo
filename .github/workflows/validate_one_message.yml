@@ -34,7 +34,7 @@ jobs:
           $(git fetch origin)
           first_commit=$(git merge-base origin/master origin/$branch)
           echo $first_commit
-          messages=$(git log --format=%B $first_commit..$branch)
+          messages=$(git log --format=%B $first_commit..origin/$branch)
           echo $messages
           for commit_message in $messages; do
               if [[ $commit_message =~ $regex ]]; then
