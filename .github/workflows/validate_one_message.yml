@@ -24,6 +24,7 @@ jobs:
         run: |
           echo ${GITHUB_HEAD_REF##*/}
           echo ${{ github.event.pull_request.commits_url }}
+          echo ${GITHUB_BASE_REF##*/}
           echo "::set-output name=current_branch::${GITHUB_HEAD_REF##*/}"
 
       - name: Count Validated Messages
