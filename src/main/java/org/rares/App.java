@@ -32,4 +32,8 @@ public class App {
     private void privateMethodNoJavadoc() {
 
     }
+
+    private void testMethod() {
+
+    }
 }
