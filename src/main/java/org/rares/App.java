@@ -28,6 +28,7 @@ public class App {
         System.out.println("Trial5");
         System.out.println("Message.");
         System.out.println("Final test commit 1");
+        System.out.println("Final test commit 2");
     }
 
     private void privateMethodNoJavadoc() {
