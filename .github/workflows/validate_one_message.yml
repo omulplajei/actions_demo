@@ -26,15 +26,21 @@ jobs:
           echo ${{ github.event.pull_request.commits_url }}
           echo ${GITHUB_BASE_REF##*/}
           echo "::set-output name=current_branch::${GITHUB_HEAD_REF##*/}"
+          echo "::set-output name=master_branch::${GITHUB_BASE_REF##*/}"
 
       - name: Count Validated Messages
         id: message-validator
         run: |
           branch=${{ steps.extract_branch.outputs.current_branch }}
+          master=${{ steps.extract_branch.outputs.master_branch }}
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
+          first_commit=$(git merge-base $master $branch)
+          echo $first_commit
           $(git fetch origin)
-          for commit_message in $(git log --format=%B $(git merge-base "master" $branch)..$branch); do
+          messages=$(git log --format=%B $first_commit..$branch)
+          echo $messages
+          for commit_message in $messages; do
               if [[ $commit_message =~ $regex ]]; then
                 OK=$((OK+1))
               fi
