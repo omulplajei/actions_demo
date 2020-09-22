@@ -44,7 +44,7 @@ jobs:
         run: |
           echo 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
           exit 1
-        if: ${{ steps.message-validator.outputs.nr_validated_messages -lt 1 }}
+        if: ${{ steps.message-validator.outputs.nr_validated_messages < 1 }}
 
 
 
