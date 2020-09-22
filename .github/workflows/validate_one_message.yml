@@ -19,23 +19,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Only for debug
+      - name: Get branch name
+        id: extract_branch
         run: |
           echo ${GITHUB_REF##*/}
           echo ${{ github.event.ref##*/ }}
           echo ${{ toJson(github) }}
           echo ${{ toJson(github.event.pull_request) }}
           echo ${{ github.event.pull_request.commits_url }}
+          echo "::set-output name=current_branch::${GITHUB_REF##*/}"
 
       - name: Count Validated Messages
         id: message-validator
         run: |
-          branch=${{ github.event.ref##*/ }}
+          branch=${{ steps.extract_branch.outputs.current_branch }}
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           git fetch origin
-          for commit_message in $(git log $(git merge-base master branch)..branch --format=%B); do
-              if [[ $message =~ $COMMIT_MESSAGE_FORMAT ]]; then
+          for commit_message in $(git log $(git merge-base "master" $branch)..$branch --format=%B); do
+              if [[ $commit_message =~ $regex ]]; then
                 OK=$((OK+1))
               fi
           done
