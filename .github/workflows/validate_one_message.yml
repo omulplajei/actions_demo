@@ -22,6 +22,7 @@ jobs:
       - name: Only for debug
         run: |
           echo ${GITHUB_REF##*/}
+          echo ${{ github.event.ref##*/ }}
           echo ${{ toJson(github) }}
           echo ${{ toJson(github.event.pull_request) }}
           echo ${{ github.event.pull_request.commits_url }}
@@ -29,7 +30,7 @@ jobs:
       - name: Count Validated Messages
         id: message-validator
         run: |
-          branch=${GITHUB_REF##*/}
+          branch=${{ github.event.ref##*/ }}
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           git fetch origin
