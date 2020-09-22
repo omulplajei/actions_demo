@@ -27,6 +27,7 @@ public class App {
         System.out.println("Try to separate commits.");
         System.out.println("12th");
         System.out.println("This actually works!");
+        System.out.println("Fixed!");
     }
 
     private void privateMethodNoJavadoc() {
