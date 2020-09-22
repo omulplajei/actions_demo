@@ -6,6 +6,10 @@ on:
       - edited
       - reopened
       - synchronize
+  push:
+    branches:
+      - master
+      - 'releases/*'
 
 jobs:
   check_at_least_one_message:
@@ -28,7 +32,7 @@ jobs:
           branch=${{ steps.extract_branch.outputs.current_branch }}
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
-          git fetch origin
+          $(git fetch origin)
           for commit_message in $(git log $(git merge-base "master" $branch)..$branch --format=%B); do
               if [[ $commit_message =~ $regex ]]; then
                 OK=$((OK+1))
