@@ -33,6 +33,11 @@ jobs:
           OK=0
           $(git fetch origin)
           first_commit=$(git merge-base origin/master origin/$branch)
+          commits=$(git rev-list $first_commit..origin/$branch
+          echo $commits
+          for commit in $commits; do
+            echo $commit
+          done
           messages=$(git log --format=%s $first_commit..origin/$branch)
           echo $messages
           for commit_message in $messages; do
