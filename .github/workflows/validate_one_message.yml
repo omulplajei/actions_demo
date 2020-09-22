@@ -23,7 +23,6 @@ jobs:
         id: extract_branch
         run: |
           echo ${GITHUB_REF##*/}
-          echo ${{ github.event.ref##*/ }}
           echo ${{ toJson(github) }}
           echo ${{ toJson(github.event.pull_request) }}
           echo ${{ github.event.pull_request.commits_url }}
