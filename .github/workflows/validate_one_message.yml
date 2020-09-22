@@ -6,10 +6,6 @@ on:
       - edited
       - reopened
       - synchronize
-  push:
-    branches:
-      - master
-      - 'releases/*'
 
 jobs:
   check_at_least_one_message:
@@ -36,7 +32,7 @@ jobs:
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           $(git fetch origin)
-          second_commit=$(git merge-base refs/heads/master $branch)
+          second_commit=$(git merge-base origin/master $branch)
           echo $second_commit
           messages=$(git log --format=%B $first_commit..$branch)
           echo $messages
