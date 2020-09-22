@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Get branch name
+      - name: Get Branch Name
         id: extract_branch
         run: |
           echo ${GITHUB_HEAD_REF##*/}
@@ -33,18 +33,17 @@ jobs:
           OK=0
           $(git fetch origin)
           first_commit=$(git merge-base origin/master origin/$branch)
-          commits=$(git rev-list $first_commit..origin/$branch)
-          for commit in $commits; do
-              message=$(git cat-file commit $commit | sed '1,/^$/d')
-              if [[ $message =~ $regex ]]; then
-                OK=$((OK+1))
-              fi
+          messages=$(git log --format=%s $first_commit..origin/$branch)
+          for message in $messages; do
+            echo $message
+            if [[ $message =~ $regex ]]; then
+               OK=$((OK+1))
+            fi
           done
           echo $OK
-          messages=$(git log --format=%s $first_commit..origin/$branch)
           echo "::set-output name=nr_validated_messages::${OK}"
 
-      - name: Verify at least one message matches regex
+      - name: Fail If No Message Is Validated
         run: |
           echo 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
           exit 1
