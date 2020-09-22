@@ -25,6 +25,7 @@ public class App {
         System.out.println("Don't trigger action for PR, only when merging.");
         System.out.println("Test");
         System.out.println("Try to separate commits.");
+        System.out.println("12th");
     }
 
     private void privateMethodNoJavadoc() {
