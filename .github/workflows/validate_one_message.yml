@@ -34,15 +34,13 @@ jobs:
           $(git fetch origin)
           first_commit=$(git merge-base origin/master origin/$branch)
           commits=$(git rev-list $first_commit..origin/$branch)
-          echo $commits
           for commit in $commits; do
               message=$(git cat-file commit $commit | sed '1,/^$/d')
-              if [[ $commit_message =~ $regex ]]; then
+              if [[ $message =~ $regex ]]; then
                 OK=$((OK+1))
               fi
           done
           messages=$(git log --format=%s $first_commit..origin/$branch)
-          echo $messages
           for commit_message in $messages; do
               echo $commit_message
           done
