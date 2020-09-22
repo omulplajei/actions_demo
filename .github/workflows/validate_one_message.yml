@@ -33,7 +33,7 @@ jobs:
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
           $(git fetch origin)
-          for commit_message in $(git log $(git merge-base "master" $branch)..$branch --format=%B); do
+          for commit_message in $(git log --format=%B $(git merge-base "master" $branch)..$branch); do
               if [[ $commit_message =~ $regex ]]; then
                 OK=$((OK+1))
               fi
