@@ -36,14 +36,12 @@ jobs:
           commits=$(git rev-list $first_commit..origin/$branch)
           for commit in $commits; do
               message=$(git cat-file commit $commit | sed '1,/^$/d')
+              echo $message
               if [[ $message =~ $regex ]]; then
                 OK=$((OK+1))
               fi
           done
           messages=$(git log --format=%s $first_commit..origin/$branch)
-          for commit_message in $messages; do
-              echo $commit_message
-          done
           echo "::set-output name=nr_validated_messages::${OK}"
 
       - name: Verify at least one message matches regex
