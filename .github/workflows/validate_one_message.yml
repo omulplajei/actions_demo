@@ -36,14 +36,15 @@ jobs:
           commits=$(git rev-list $first_commit..origin/$branch)
           echo $commits
           for commit in $commits; do
-            echo $commit
+              message=$(git cat-file commit $commit | sed '1,/^$/d')
+              if [[ $commit_message =~ $regex ]]; then
+                OK=$((OK+1))
+              fi
           done
           messages=$(git log --format=%s $first_commit..origin/$branch)
           echo $messages
           for commit_message in $messages; do
-              if [[ $commit_message =~ $regex ]]; then
-                OK=$((OK+1))
-              fi
+              echo $commit_message
           done
           echo "::set-output name=nr_validated_messages::${OK}"
 
