@@ -1,0 +1,53 @@
+name: 'Validate at least one message'
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - master
+      - 'releases/*'
+
+jobs:
+  check_at_least_one_message:
+    name: Check Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Only for debug
+        run: |
+          echo "Branch: " ${GITHUB_REF##*/}
+          echo ${{ toJson(github) }}
+          echo ${{ toJson(github.event.pull_request) }}
+          echo ${{ github.event.pull_request.commits_url }}
+          echo ${{ GITHUB_SHA_SHORT }}
+
+      - name: Count Validated Messages
+        id: message-validator
+        run: |
+          branch=$(git symbolic-ref --short HEAD)
+          regex='^((TP|#|US)[0-9]+).+$'
+          OK=0
+          for commit_message in $(git log $(git merge-base master branch)..branch --format=%B); do
+              if [[ $message =~ $COMMIT_MESSAGE_FORMAT ]]; then
+                OK=$((OK+1))
+              fi
+          done
+          echo "::set-output name=nr_validated_messages::${OK}"
+
+      - name: Verify at least one message matches regex
+        run: |
+          echo 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
+          exit 1
+        if: ${{ steps.message-validator.outputs.nr_validated_messages -lt 1 }}
+
+
+
+
+
+
