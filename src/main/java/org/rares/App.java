@@ -27,6 +27,7 @@ public class App {
         System.out.println("Commit without reference id");
         System.out.println("Trial5");
         System.out.println("Message.");
+        System.out.println("Final test commit 1");
     }
 
     private void privateMethodNoJavadoc() {
