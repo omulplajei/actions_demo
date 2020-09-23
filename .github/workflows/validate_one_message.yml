@@ -18,31 +18,30 @@ jobs:
       - name: Get Branch Name
         id: extract_branch
         run: |
-          echo ${GITHUB_HEAD_REF##*/}
-          echo ${{ github.event.pull_request.commits_url }}
-          echo ${GITHUB_BASE_REF##*/}
           echo "::set-output name=current_branch::${GITHUB_HEAD_REF##*/}"
-          echo "::set-output name=master_branch::${GITHUB_BASE_REF##*/}"
+          echo "::set-output name=base_branch::${GITHUB_BASE_REF##*/}"
 
-      - name: Count Validated Messages
+      - name: Count Valid Messages
         id: message-validator
         run: |
           branch=${{ steps.extract_branch.outputs.current_branch }}
-          master=${{ steps.extract_branch.outputs.master_branch }}
+          base_branch=${{ steps.extract_branch.outputs.base_branch }}
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
-          $(git fetch origin)
-          first_commit=$(git merge-base origin/master origin/$branch)
-          commits=$(git rev-list $first_commit..origin/$branch)
-          for commit in $commits; do
-              message=$(git cat-file commit $commit | sed '1,/^$/d')
-              if [[ $message =~ $regex ]]; then
-                  OK=$((OK+1))
-              fi
-          done
+          if [[ $base_branch == "master" ]]; then
+            $(git fetch origin)
+            first_commit=$(git merge-base origin/$base_branch origin/$branch)
+            commits=$(git rev-list $first_commit..origin/$branch)
+            for commit in $commits; do
+                message=$(git cat-file commit $commit | sed '1,/^$/d')
+                if [[ $message =~ $regex ]]; then
+                   OK=$((OK+1))
+                fi
+            done
+          fi
           echo "::set-output name=nr_validated_messages::${OK}"
 
-      - name: Fail If No Message Is Validated
+      - name: Fail If No Message Is Valid
         run: |
           echo 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
           exit 1
