@@ -1,4 +1,4 @@
-name: 'Validate at least one message'
+name: 'Check Commit Message'
 on:
   pull_request:
     types:
@@ -39,10 +39,10 @@ jobs:
                 fi
             done
           fi
-          echo "::set-output name=nr_validated_messages::${OK}"
+          echo "::set-output name=nr_valid_messages::${OK}"
 
       - name: Fail If No Message Is Valid
         run: |
-          echo 'Commit message format must be one of "TP12345/US12345/#12345 - message".'
+          echo 'Commit messages must be formatted like TPxxxx or USxxxxx or #xxxxxx.'
           exit 1
-        if: ${{ steps.message-validator.outputs.nr_validated_messages < 1 }}
+        if: ${{ steps.message-validator.outputs.nr_valid_messages < 1 && steps.extract_branch.outputs.base_branch == "master"}}
