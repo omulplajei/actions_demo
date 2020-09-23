@@ -45,4 +45,4 @@ jobs:
         run: |
           echo 'Commit messages must be formatted like TPxxxx or USxxxxx or #xxxxxx.'
           exit 1
-        if: ${{ steps.message-validator.outputs.nr_valid_messages < 1 && steps.extract_branch.outputs.base_branch == "master"}}
+        if: ${{ steps.message-validator.outputs.nr_valid_messages < 1 && steps.extract_branch.outputs.base_branch == 'master'}}
