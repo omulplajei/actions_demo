@@ -17,13 +17,13 @@ jobs:
 
       - name: Get branch name
         uses: nelonoel/branch-name@v1
-        run: echo ${BRANCH_NAME}
 
       - name: Get Branch Name
         id: extract_branch
         run: |
           echo "::set-output name=current_branch::${GITHUB_HEAD_REF##*/}"
           echo "::set-output name=base_branch::${GITHUB_BASE_REF##*/}"
+          echo ${BRANCH_NAME}
           echo ${GITHUB_HEAD_REF}
           echo ${{ github.head_ref }}
           echo ${{ github.base_ref }}
