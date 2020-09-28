@@ -23,10 +23,7 @@ public class App {
 
         System.out.println("Testing last commit message check!");
         System.out.println("Don't trigger action for PR, only when merging.");
-        System.out.println("Trial4");
-        System.out.println("Commit without reference id");
-        System.out.println("Trial5");
-        System.out.println("Message.");
+        System.out.println("Final version works good!.");
     }
 
     private void privateMethodNoJavadoc() {
