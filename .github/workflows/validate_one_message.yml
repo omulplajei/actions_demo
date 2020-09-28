@@ -26,7 +26,7 @@ jobs:
         run: |
           branch=${{ github.event.pull_request.head.ref }}
           echo $branch
-          base_branch=${{ steps.extract_branch.outputs.base_branch }}
+          base_branch=${{ github.event.pull_request.base.ref }}
           echo $base_branch
           regex='^((TP|#|US)[0-9]+).+$'
           OK=0
