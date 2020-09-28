@@ -28,6 +28,7 @@ public class App {
         System.out.println("Trial5");
         System.out.println("Message.");
         System.out.println("Test computed branch name.");
+        System.out.println("Second commit.");
     }
 
     private void privateMethodNoJavadoc() {
